@@ -11,3 +11,6 @@ ruby ducky_hashdump_tcp.rb
 [+] Got sys file!
 
 The server that is setup is multi threaded so you can collect reg files from multiple computers or servers.
+
+
+Make sure you click on the UAC pop up for the ducky to click yes!

